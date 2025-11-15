@@ -1,8 +1,38 @@
-import { StyleSheet, TextInput, View } from "react-native";
+import { useState } from "react";
+import { StyleSheet, TextInput, View, Alert } from "react-native";
 
 import PrimaryButton from "../components/PrimaryButton";
 
 function StartGameScreen() {
+  const [enteredNumber, setEnteredNumber] = useState("");
+
+  function numberInputHandler(enteredText) {
+    setEnteredNumber(enteredText);
+  }
+
+  function confirmInputHandler() {
+    // Add logic to handle the confirmation of the entered number
+    console.log("Confirmed number:", enteredNumber);
+    const chosenNumber = parseInt(enteredNumber);
+    if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+      // Show some alert or error message
+      Alert.alert(
+        "Invalid number!",
+        "Number has to be between 1 and 99.",
+        [{ text: "Okay", style: "destructive", onPress: resetInputHandler }]
+      );
+      console.log("Invalid number entered");
+      return;
+    }
+    console.log("Valid number entered:", chosenNumber);
+    // Proceed with the valid number (e.g., start the game)
+  }
+
+  function resetInputHandler() {
+    setEnteredNumber("");
+    console.log("Input reset");
+  }
+
   return (
     <View style={styles.PrimaryButtoncontainer}>
       <TextInput
@@ -11,13 +41,15 @@ function StartGameScreen() {
         keyboardType="number-pad"
         autoCapitalize="none"
         autoCorrect={false}
+        onChangeText={numberInputHandler}
+        value={enteredNumber}
       />
       <View style={styles.buttonsContainer}>
         <View style={styles.buttonContainer}>
-          <PrimaryButton>Reset</PrimaryButton>
+          <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
         </View>
         <View style={styles.buttonContainer}>
-          <PrimaryButton>Confirm</PrimaryButton>
+          <PrimaryButton onPress={confirmInputHandler} >Confirm</PrimaryButton>
         </View>
       </View>
     </View>
@@ -57,10 +89,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     overflow: "hidden",
   },
-    buttonContainer: {
-      flex: 1,
-      borderRadius: 20,
-    },
+  buttonContainer: {
+    flex: 1,
+    borderRadius: 20,
+  },
 });
 
 export default StartGameScreen;
