@@ -2,25 +2,25 @@ import { StyleSheet, View, Text } from "react-native";
 
 function GameScreen() {
   return (
-    <View style={styles.exampleStyle}>
+    <View style={styles.screen}>
       <Text>Opponent's Guess</Text>
-      Guess 
+      {/* Guess  */}
       <View>
-        <Text>Higher or lower ?</Text>+ -
+        <Text>Higher or lower ?</Text>
+        {/* + - */}
       </View>
       <View>
-        <Text>Log Rounds</Text>
+        {/* Log Rounds */}
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  exampleStyle: {
+  screen: {
     // Add your styles here
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    padding: 24,
   },
 });
 
